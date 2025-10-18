@@ -13,7 +13,7 @@ class MovieProvider with ChangeNotifier {
       final movie = MovieParser.parseMovies(jsonString);
       _moviesList = movie;
     } catch (e) {
-      print("Erro cant't load movies : $e");
+      // print("Erro cant't load movies : $e");
     }
   }
 }

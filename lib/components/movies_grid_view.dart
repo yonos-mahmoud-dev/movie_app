@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/components/slider_opacity.dart';
+import 'package:movies_app/providers/movie_provider.dart';
+import 'package:provider/provider.dart';
 
 class MoviesGridView extends StatelessWidget {
   const MoviesGridView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final movieData = Provider.of<MovieProvider>(context);
     return SliverGrid.builder(
-      itemCount: 30,
+      itemCount: movieData.moviesList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         // crossAxisSpacing: 5,
@@ -15,6 +18,7 @@ class MoviesGridView extends StatelessWidget {
         mainAxisExtent: 300,
       ),
       itemBuilder: (BuildContext context, int index) {
+        final movie = movieData.moviesList[index];
         return Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: Container(
@@ -22,7 +26,7 @@ class MoviesGridView extends StatelessWidget {
               color: Colors.red,
               borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
-                image: AssetImage("assets/images/slider/moveposter1.jpeg"),
+                image: NetworkImage(movie.images[5]),
                 fit: BoxFit.cover,
               ),
               boxShadow: [
@@ -42,7 +46,10 @@ class MoviesGridView extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
 
-                    child: Text("8.9", style: TextStyle(color: Colors.white)),
+                    child: Text(
+                      movie.imdbRating,
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
                 Positioned(
@@ -54,10 +61,11 @@ class MoviesGridView extends StatelessWidget {
                     height: 30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: Colors.deepOrangeAccent,
+                      color: const Color.fromRGBO(255, 110, 64, 0.2),
+                      border: Border.all(color: Colors.white),
                     ),
                     child: Text(
-                      "افلام اجنبي",
+                      movie.type,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -72,7 +80,7 @@ class MoviesGridView extends StatelessWidget {
                   child: SizedBox(
                     width: 150,
                     child: Text(
-                      "The Conjuring Last Rites ( 2025 )",
+                      "${movie.title}(${movie.year})",
                       overflow: TextOverflow.clip,
                       maxLines: 2,
                       style: TextStyle(
@@ -99,11 +107,11 @@ class MoviesGridView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          "اكشن",
+                          movie.genre.split(",")[0].toString(),
                           style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
                           ),
                         ),
                       ),
@@ -117,11 +125,11 @@ class MoviesGridView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          "أثارة",
+                          movie.genre.split(",")[1].toString(),
                           style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
                           ),
                         ),
                       ),
@@ -134,11 +142,11 @@ class MoviesGridView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          "مغامرات",
+                          movie.genre.split(",")[2].toString(),
                           style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
                           ),
                         ),
                       ),
