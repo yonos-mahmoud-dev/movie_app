@@ -40,6 +40,7 @@ dependencies:
   meta: ^1.16.0
   test_api: ^0.7.6
   carousel_slider: ^5.1.1
+  video_player: ^2.10.0
 
 dev_dependencies:
   flutter_test:

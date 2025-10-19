@@ -5,8 +5,8 @@ import 'package:movies_app/views/movei_details.dart';
 import 'package:provider/provider.dart';
 
 class MoviesGridView extends StatelessWidget {
-  const MoviesGridView({super.key});
-
+  const MoviesGridView({super.key, this.isDetails = false});
+  final bool isDetails;
   @override
   Widget build(BuildContext context) {
     final movieData = Provider.of<MovieProvider>(context);
@@ -26,7 +26,9 @@ class MoviesGridView extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 (context),
-                MaterialPageRoute(builder: (context) => MoveiDetails()),
+                MaterialPageRoute(
+                  builder: (context) => MoveiDetails(movie: movie),
+                ),
               );
             },
             child: Container(
